@@ -33,6 +33,18 @@ io.on('connection', function (socket) {
 				for (var j = 0; j < movecount; j++) {
 					socket.emit('chat message', movesmade[j]);
 				}
+				
+				for (var k = 0; k < movecount; k++) {
+					var cmove = movesmade[k];
+					var matches = 0;
+					for (var l = k+1; l < movecount; l++) {
+						var nmove = movesmade[l];
+						if (cmove == nmove) {
+							matches++;
+						}
+					}
+					console.log(cmove + " matched " + matches + " times ");
+				}
 				console.log("player " + i + " reconnected with new id " + players[i][0]);
 				conn1 = true;
 			}
