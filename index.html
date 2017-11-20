@@ -1,0 +1,672 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Connect 4x4</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .square {
+            float: left;
+            position: relative;
+            width: 10%;
+            height: 10%;
+            margin: 1.2%;
+            padding-bottom: 10%;
+            background-color: white;
+            overflow: hidden;
+            border: solid black;
+            border-radius: 50px;
+        }
+
+        .insquare {
+            border: solid black;
+            border-radius: 25px;
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            top: 25%;
+            left: 25%;
+            margin: 0 auto;
+            background-color: white;
+        }
+
+        .grid {
+            text-align: center;
+            border: solid black;
+            top: 10%;
+            left: 10%;
+            position: absolute;
+            width: 800px;
+            height: 850px;
+            padding: 15px;
+        }
+
+        body {
+            font: 13px Helvetica, Arial;
+        }
+
+        form {
+            background: #000;
+            padding: 3px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        form input {
+            border: 0;
+            padding: 10px;
+            width: 90%;
+            margin-right: .5%;
+        }
+
+        form button {
+            width: 9%;
+            background: rgb(130, 224, 255);
+            border: none;
+            padding: 10px;
+        }
+
+        #messages {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #messages li {
+            padding: 5px 10px;
+        }
+
+        #messages li:nth-child(odd) {
+            background: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="pcount">
+        <p id = "player0"> </p> 
+        <p id = "player1"> </p> 
+        <p id = "player2"> </p> 
+        <p id = "player3"> </p> 
+                
+        </div>
+    <div class="grid" id="grid">
+        <!--TOP ROW-->
+        <div class="square" id="row-0-col-0">
+            <div class="insquare" id="irow-0-col-0">
+            </div>
+        </div>
+        <div class="square" id="row-0-col-1">
+            <div class="insquare" id="irow-0-col-1">
+            </div>
+        </div>
+        <div class="square" id="row-0-col-2">
+            <div class="insquare" id="irow-0-col-2">
+            </div>
+        </div>
+        <div class="square" id="row-0-col-3">
+            <div class="insquare" id="irow-0-col-3">
+            </div>
+        </div>
+        <div class="square" id="row-0-col-4">
+            <div class="insquare" id="irow-0-col-4">
+            </div>
+        </div>
+        <div class="square" id="row-0-col-5">
+            <div class="insquare" id="irow-0-col-5">
+            </div>
+        </div>
+        <div class="square" id="row-0-col-6">
+            <div class="insquare" id="irow-0-col-6">
+            </div>
+        </div>
+        <div class="square" id="row-0-col-7">
+            <div class="insquare" id="irow-0-col-7">
+            </div>
+        </div>
+        <!--2nd ROW-->
+        <div class="square" id="row-1-col-0">
+            <div class="insquare" id="irow-1-col-0">
+            </div>
+        </div>
+        <div class="square" id="row-1-col-1">
+            <div class="insquare" id="irow-1-col-1">
+            </div>
+        </div>
+        <div class="square" id="row-1-col-2">
+            <div class="insquare" id="irow-1-col-2">
+            </div>
+        </div>
+        <div class="square" id="row-1-col-3">
+            <div class="insquare" id="irow-1-col-3">
+            </div>
+        </div>
+        <div class="square" id="row-1-col-4">
+            <div class="insquare" id="irow-1-col-4">
+            </div>
+        </div>
+        <div class="square" id="row-1-col-5">
+            <div class="insquare" id="irow-1-col-5">
+            </div>
+        </div>
+        <div class="square" id="row-1-col-6">
+            <div class="insquare" id="irow-1-col-6">
+            </div>
+        </div>
+        <div class="square" id="row-1-col-7">
+            <div class="insquare" id="irow-1-col-7">
+            </div>
+        </div>
+        <!--3rd ROW-->
+        <div class="square" id="row-2-col-0">
+            <div class="insquare" id="irow-2-col-0">
+            </div>
+        </div>
+        <div class="square" id="row-2-col-1">
+            <div class="insquare" id="irow-2-col-1">
+            </div>
+        </div>
+        <div class="square" id="row-2-col-2">
+            <div class="insquare" id="irow-2-col-2">
+            </div>
+        </div>
+        <div class="square" id="row-2-col-3">
+            <div class="insquare" id="irow-2-col-3">
+            </div>
+        </div>
+        <div class="square" id="row-2-col-4">
+            <div class="insquare" id="irow-2-col-4">
+            </div>
+        </div>
+        <div class="square" id="row-2-col-5">
+            <div class="insquare" id="irow-2-col-5">
+            </div>
+        </div>
+        <div class="square" id="row-2-col-6">
+            <div class="insquare" id="irow-2-col-6">
+            </div>
+        </div>
+        <div class="square" id="row-2-col-7">
+            <div class="insquare" id="irow-2-col-7">
+            </div>
+        </div>
+        <!--4th ROW-->
+        <div class="square" id="row-3-col-0">
+            <div class="insquare" id="irow-3-col-0">
+            </div>
+        </div>
+        <div class="square" id="row-3-col-1">
+            <div class="insquare" id="irow-3-col-1">
+            </div>
+        </div>
+        <div class="square" id="row-3-col-2">
+            <div class="insquare" id="irow-3-col-2">
+            </div>
+        </div>
+        <div class="square" id="row-3-col-3">
+            <div class="insquare" id="irow-3-col-3">
+            </div>
+        </div>
+        <div class="square" id="row-3-col-4">
+            <div class="insquare" id="irow-3-col-4">
+            </div>
+        </div>
+        <div class="square" id="row-3-col-5">
+            <div class="insquare" id="irow-3-col-5">
+            </div>
+        </div>
+        <div class="square" id="row-3-col-6">
+            <div class="insquare" id="irow-3-col-6">
+            </div>
+        </div>
+        <div class="square" id="row-3-col-7">
+            <div class="insquare" id="irow-3-col-7">
+            </div>
+        </div>
+        <!--5th ROW-->
+        <div class="square" id="row-4-col-0">
+            <div class="insquare" id="irow-4-col-0">
+            </div>
+        </div>
+        <div class="square" id="row-4-col-1">
+            <div class="insquare" id="irow-4-col-1">
+            </div>
+        </div>
+        <div class="square" id="row-4-col-2">
+            <div class="insquare" id="irow-4-col-2">
+            </div>
+        </div>
+        <div class="square" id="row-4-col-3">
+            <div class="insquare" id="irow-4-col-3">
+            </div>
+        </div>
+        <div class="square" id="row-4-col-4">
+            <div class="insquare" id="irow-4-col-4">
+            </div>
+        </div>
+        <div class="square" id="row-4-col-5">
+            <div class="insquare" id="irow-4-col-5">
+            </div>
+        </div>
+        <div class="square" id="row-4-col-6">
+            <div class="insquare" id="irow-4-col-6">
+            </div>
+        </div>
+        <div class="square" id="row-4-col-7">
+            <div class="insquare" id="irow-4-col-7">
+            </div>
+        </div>
+        <!--6th ROW-->
+        <div class="square" id="row-5-col-0">
+            <div class="insquare" id="irow-5-col-0">
+            </div>
+        </div>
+        <div class="square" id="row-5-col-1">
+            <div class="insquare" id="irow-5-col-1">
+            </div>
+        </div>
+        <div class="square" id="row-5-col-2">
+            <div class="insquare" id="irow-5-col-2">
+            </div>
+        </div>
+        <div class="square" id="row-5-col-3">
+            <div class="insquare" id="irow-5-col-3">
+            </div>
+        </div>
+        <div class="square" id="row-5-col-4">
+            <div class="insquare" id="irow-5-col-4">
+            </div>
+        </div>
+        <div class="square" id="row-5-col-5">
+            <div class="insquare" id="irow-5-col-5">
+            </div>
+        </div>
+        <div class="square" id="row-5-col-6">
+            <div class="insquare" id="irow-5-col-6">
+            </div>
+        </div>
+        <div class="square" id="row-5-col-7">
+            <div class="insquare" id="irow-5-col-7">
+            </div>
+        </div>
+        <!--7th ROW-->
+        <div class="square" id="row-6-col-0">
+            <div class="insquare" id="irow-6-col-0">
+            </div>
+        </div>
+        <div class="square" id="row-6-col-1">
+            <div class="insquare" id="irow-6-col-1">
+            </div>
+        </div>
+        <div class="square" id="row-6-col-2">
+            <div class="insquare" id="irow-6-col-2">
+            </div>
+        </div>
+        <div class="square" id="row-6-col-3">
+            <div class="insquare" id="irow-6-col-3">
+            </div>
+        </div>
+        <div class="square" id="row-6-col-4">
+            <div class="insquare" id="irow-6-col-4">
+            </div>
+        </div>
+        <div class="square" id="row-6-col-5">
+            <div class="insquare" id="irow-6-col-5">
+            </div>
+        </div>
+        <div class="square" id="row-6-col-6">
+            <div class="insquare" id="irow-6-col-6">
+            </div>
+        </div>
+        <div class="square" id="row-6-col-7">
+            <div class="insquare" id="irow-6-col-7">
+            </div>
+        </div>
+        <!--8th ROW-->
+        <div class="square" id="row-7-col-0">
+            <div class="insquare" id="irow-7-col-0">
+            </div>
+        </div>
+        <div class="square" id="row-7-col-1">
+            <div class="insquare" id="irow-7-col-1">
+            </div>
+        </div>
+        <div class="square" id="row-7-col-2">
+            <div class="insquare" id="irow-7-col-2">
+            </div>
+        </div>
+        <div class="square" id="row-7-col-3">
+            <div class="insquare" id="irow-7-col-3">
+            </div>
+        </div>
+        <div class="square" id="row-7-col-4">
+            <div class="insquare" id="irow-7-col-4">
+            </div>
+        </div>
+        <div class="square" id="row-7-col-5">
+            <div class="insquare" id="irow-7-col-5">
+            </div>
+        </div>
+        <div class="square" id="row-7-col-6">
+            <div class="insquare" id="irow-7-col-6">
+            </div>
+        </div>
+        <div class="square" id="row-7-col-7">
+            <div class="insquare" id="irow-7-col-7">
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        $(function () {
+            var socket = io();
+
+            /*
+               $('form').submit(function(){
+               socket.emit('chat message', $('#m').val());
+               $('#m').val('');
+               return false;
+               });
+             */
+            $(".square").on('click', function () {
+                var message = '#' + $(this).attr('id');
+                socket.emit('chat message', message);
+                return false;
+            });
+            $(".insquare").on('click', function () {
+                var message = '#' + $(this).attr('id');
+                socket.emit('chat message', message);
+                return false;
+            });
+            socket.on('chat message', function (msg) {
+                dropRow(msg);
+                return false;
+            });
+
+            socket.on('disconnect', function (msg) {
+                //$('#grid').hide();
+                // console.log(msg);
+                // var players = msg.split(" ");
+                // for(var i = 0; i < 4; i++) {
+                //     var cplayer = players[i];
+                //     if(cplayer == 0) {
+                //         var idx = "Player "+ (i+1) +" disconnected";
+                //         var p1 = "#player" + i;
+                //         console.log(idx); 
+                //         console.log(p1);
+                //         $(p1).text(idx);
+                //         $(p1).css('color', 'red');
+                //     } else {
+                //         var idx = "Player "+ (i+1) +" connected";
+                //         var p1 = "#player" + i;
+                //         console.log(idx);
+                //         console.log(p1);
+                //         $(p1).text(idx);
+                //         $(p1).css('color', 'green');
+                //     }
+                // }
+                // return false;
+            });
+            
+            socket.on('player check', function (msg) {
+                //$('#grid').hide();
+                console.log(msg);
+                var players = msg.split(" ");
+                for(var i = 0; i < 4; i++) {
+                    var cplayer = players[i];
+                    if(cplayer == 0) {
+                        var idx = "Player "+ (i+1) +" disconnected";
+                        var p1 = "#player" + i;
+                        console.log(idx); 
+                        console.log(p1);
+                        $(p1).text(idx);
+                        $(p1).css('color', 'red');
+                    } else {
+                        var idx = "Player "+ (i+1) +" connected";
+                        var p1 = "#player" + i;
+                        console.log(idx);
+                        console.log(p1);
+                        $(p1).text(idx);
+                        $(p1).css('color', 'green');
+                    }
+                }
+                return false;
+            });
+
+            function dropRow(msg) {
+                var id = msg.split(" ");
+                var color = id[1];
+                var temp = msg.split("-");
+                var row = temp[0];
+                var rownum = temp[1];
+                var col = temp[2];
+                var tcolnum = temp[3].split(" ");
+                var colnum = tcolnum[0];
+                for (var i = 7; i >= 0; i--) {
+                    var idx = row + "-" + i + "-" + col + "-" + colnum;
+                    //console.log(idx);
+                    //console.log($(idx).css('background-color'));
+                    if ($(idx).css('background-color') == "rgb(255, 255, 255)") {
+                        $(idx).css('background-color', '');
+                        $(idx).css('background-color', color);
+                        //console.log($(idx).css('background-color'));
+                        var colr = $(idx).css('background-color');
+                        //console.log(colr);
+                        if (checkwinnerv(i, colnum, colr)) {
+                            var win = "WINNER";
+                            socket.emit('chat message', win);
+                        }
+                        if (checkwinnerh(i, colnum, colr)) {
+                            var win = "WINNER";
+                            socket.emit('chat message', win);
+                        }
+                        if (checkwinnerd(i, colnum, colr)) {
+                            var win = "WINNER";
+                            socket.emit('chat message', win);
+                        }
+                        if (checkwinnerd1(i, colnum, colr)) {
+                            var win = "WINNER";
+                            socket.emit('chat message', win);
+                        }
+                        return false;
+                    }
+                }
+                return false;
+            }
+
+            function checkwinnerv(row, colnum, colr) {
+                var count = 0;
+                //check vertical
+
+                for (var i = colnum; i < 8; i++) {
+                    if (count == 3) {
+                        console.log("WINNER");
+                        return true;
+                    }
+                    var oidx = "#row-" + row + "-col-" + i;
+                    var iidx = "#irow-" + row + "-col-" + i;
+                    console.log(oidx);
+                    if (($(oidx).css('background-color') == colr) || ($(iidx).css('background-color') == colr)) {
+                        count = count + 1;
+                        console.log(count, colr);
+                    }
+                    if (!($(oidx).css('background-color') == colr) && !($(iidx).css('background-color') == colr)) {
+                        if (checkwinnervert())
+                            return true;
+                        return false;
+                    }
+                }
+
+                function checkwinnervert() {
+                    for (var i = colnum - 1; i >= 0; i--) {
+                        if (count == 3) {
+                            console.log("WINNER");
+                            return true;
+                        }
+                        var oidx = "#row-" + row + "-col-" + i;
+                        var iidx = "#irow-" + row + "-col-" + i;
+                        if (($(oidx).css('background-color') == colr) || ($(iidx).css('background-color') == colr)) {
+                            count = count + 1;
+                            console.log(count, colr);
+                        }
+                        if (!($(oidx).css('background-color') == colr) && !($(iidx).css('background-color') == colr)) {
+                            return false;
+                        }
+                    }
+                }
+                //end vertical
+                return false;
+            }
+
+            function checkwinnerh(row, colnum, colr) {
+                var count = 0;
+                //check horizontal
+
+                for (var i = row; i < 8; i++) {
+                    if (count == 3) {
+                        console.log("WINNER");
+                        return true;
+                    }
+                    var oidx = "#row-" + i + "-col-" + colnum;
+                    var iidx = "#irow-" + i + "-col-" + colnum;
+                    console.log(oidx);
+                    if (($(oidx).css('background-color') == colr) || ($(iidx).css('background-color') == colr)) {
+                        count = count + 1;
+                        console.log(count, colr);
+                    }
+                    if (!($(oidx).css('background-color') == colr) && !($(iidx).css('background-color') == colr)) {
+                        if (checkwinnerhoriz())
+                            return true;
+                        return false;
+                    }
+                }
+                function checkwinnerhoriz() {
+                    for (var i = row - 1; i >= 0; i--) {
+                        if (count == 3) {
+                            console.log("WINNER");
+                            return true;
+                        }
+                        var oidx = "#row-" + i + "-col-" + colnum;
+                        var iidx = "#irow-" + i + "-col-" + colnum;
+                        if (($(oidx).css('background-color') == colr) || ($(iidx).css('background-color') == colr)) {
+                            count = count + 1;
+                            console.log(count, colr);
+                        }
+                        if (!($(oidx).css('background-color') == colr) && !($(iidx).css('background-color') == colr)) {
+                            return false;
+                        }
+                    }
+                }
+                //end horizontal
+                return false;
+	    }
+	    function checkwinnerd(row, colnum, colr) {
+		    var count = 0;
+		    var i=row;
+		    var j=colnum;
+		    //check horizontal
+		    while(i<8 && j<8){
+			    if (count == 3) {
+				    console.log("WINNER");
+				    return true;
+			    }
+			    var oidx = "#row-" + i + "-col-" + j;
+			    var iidx = "#irow-" + i + "-col-" + j;
+			    console.log(oidx);
+			    if (($(oidx).css('background-color') == colr) || ($(iidx).css('background-color') == colr)) {
+				    count = count + 1;
+				    console.log(count, colr);
+			    }
+			    if (!($(oidx).css('background-color') == colr) && !($(iidx).css('background-color') == colr)) {
+				    if (checkwinnerdiag1())
+					    return true;
+				    return false;
+			    }
+			    i++;
+			    j++;
+		    }
+		    function checkwinnerdiag1() {
+			    var i = row-1;
+			    var j = colnum-1;
+			    while(i>=0 && j>=0) {
+				    if (count == 3) {
+					    console.log("WINNER");
+					    return true;
+				    }
+				    var oidx = "#row-" + i + "-col-" + j;
+				    var iidx = "#irow-" + i + "-col-" + j;
+				    if (($(oidx).css('background-color') == colr) || ($(iidx).css('background-color') == colr)) {
+					    count = count + 1;
+					    console.log(count, colr);
+				    }
+				    if (!($(oidx).css('background-color') == colr) && !($(iidx).css('background-color') == colr)) {
+					    return false;
+				    }
+				    i--;
+				    j--;
+			    }
+		    }
+		    //end horizontal
+		    return false;
+	    }
+	    function checkwinnerd1(row, colnum, colr) {
+		    var count = 0;
+		    var i=row;
+		    var j=colnum;
+		    //check horizontal
+		    while(i<8 && j>=0){
+			    if (count == 3) {
+				    console.log("WINNER");
+				    return true;
+			    }
+			    var oidx = "#row-" + i + "-col-" + j;
+			    var iidx = "#irow-" + i + "-col-" + j;
+			    console.log(oidx);
+			    if (($(oidx).css('background-color') == colr) || ($(iidx).css('background-color') == colr)) {
+				    count = count + 1;
+				    console.log(count, colr);
+			    }
+			    if (!($(oidx).css('background-color') == colr) && !($(iidx).css('background-color') == colr)) {
+				    if (checkwinnerdiag2())
+					    return true;
+				    return false;
+			    }
+			    i++;
+			    j--;
+		    }
+		    function checkwinnerdiag2() {
+			    var i = row-1;
+			    var j = colnum+1;
+			    while(i>=0 && j<8) {
+				    if (count == 3) {
+					    console.log("WINNER");
+					    return true;
+				    }
+				    var oidx = "#row-" + i + "-col-" + j;
+				    var iidx = "#irow-" + i + "-col-" + j;
+				    if (($(oidx).css('background-color') == colr) || ($(iidx).css('background-color') == colr)) {
+					    count = count + 1;
+					    console.log(count, colr);
+				    }
+				    if (!($(oidx).css('background-color') == colr) && !($(iidx).css('background-color') == colr)) {
+					    return false;
+				    }
+				    i--;
+				    j++;
+			    }
+		    }
+		    //end horizontal
+		    return false;
+	    }
+	});
+    </script>
+</body>
+
+</html>
