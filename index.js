@@ -118,7 +118,7 @@ io.on('connection', function (socket) {
 		io.emit('disconnect', conn);
 		
 		if (players[idx][0] == socket.id && players[idx][1] == false) {
-			console.log("making move for disconnected player " + players[idx][0]);
+			//console.log("making move for disconnected player " + players[idx][0]);
 
 			var inout = Math.floor(Math.random() * (1 - 0) + 0);
 			var inouts;
@@ -167,8 +167,8 @@ io.on('connection', function (socket) {
 			if (players[i][1] == true) {
 
 			}
-			if (players[i][1] == false && i == idx) {
-				console.log("making move for disconnected player " + players[i][0]);
+			else if (players[i][1] == false && i == idx) {
+				//console.log("making move for disconnected player " + players[i][0]);
 
 				var inout = Math.floor(Math.random() * (10 - 0) + 0);
 				var inouts;
