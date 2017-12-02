@@ -8,7 +8,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
+	}
 
         .square {
             float: left;
@@ -96,6 +96,9 @@
         <p id = "player3"> </p> 
                 
         </div>
+	<div class="win" id="win" style="display:none;">
+		<b>we have a winner</b>
+	</div>
     <div class="grid" id="grid">
         <!--TOP ROW-->
         <div class="square" id="row-0-col-0">
@@ -386,9 +389,21 @@
                 return false;
             });
             socket.on('chat message', function (msg) {
+		    var temp = msg.split(" ");
+		    if (temp[0] == "WINNER") {
+			    showwinner(msg);
+			    return false;
+		    }
                 dropRow(msg);
                 return false;
             });
+
+	    function showwinner(msg) {
+		    var temp = msg.split(" ");
+		    $("#grid").css("display", "none");
+		    $("#win").css("display", "inline");
+		    return false;
+	    }
 
             socket.on('disconnect', function (msg) {
                 //$('#grid').hide();
@@ -461,19 +476,19 @@
                         //console.log(colr);
                         if (checkwinnerv(i, colnum, colr)) {
                             var win = "WINNER";
-                            socket.emit('chat message', win);
+                            socket.emit('win message', win);
                         }
                         if (checkwinnerh(i, colnum, colr)) {
                             var win = "WINNER";
-                            socket.emit('chat message', win);
+                            socket.emit('win message', win);
                         }
                         if (checkwinnerd(i, colnum, colr)) {
                             var win = "WINNER";
-                            socket.emit('chat message', win);
+                            socket.emit('win message', win);
                         }
                         if (checkwinnerd1(i, colnum, colr)) {
                             var win = "WINNER";
-                            socket.emit('chat message', win);
+                            socket.emit('win message', win);
                         }
                         return false;
                     }

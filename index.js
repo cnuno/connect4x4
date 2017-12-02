@@ -47,6 +47,7 @@ io.on('connection', function (socket) {
 				}
 				console.log("player " + i + " reconnected with new id " + players[i][0]);
 				conn1 = true;
+				count++;
 			}
 		}
 	}
@@ -64,7 +65,16 @@ io.on('connection', function (socket) {
 	//console.log(ready);
 	var client = [];
 	//console.log(count);
-
+	var wincount = 0;
+	socket.on('win message', function(msg) {
+		wincount += 1;
+		var i = idx-1;
+		console.log(wincount);
+		var winner = "WINNER " + i;
+		if (wincount >= count) {
+			io.emit('chat message',winner);
+		}
+	});
 
 	socket.on('chat message', function (msg) {
 		console.log(socket.id + " compared to players " + players[idx][0]);
@@ -156,6 +166,7 @@ io.on('connection', function (socket) {
 				players[i][1] = false;
 			}
 		}
+		count--;
 
 	});
 
