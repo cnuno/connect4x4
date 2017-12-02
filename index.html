@@ -97,8 +97,8 @@
                 
         </div>
 	<div class="win" id="win" style="display:none;">
-		<b>we have a winner</b>
 	</div>
+	<div class="pidx" id="pidx"></div>
     <div class="grid" id="grid">
         <!--TOP ROW-->
         <div class="square" id="row-0-col-0">
@@ -370,7 +370,7 @@
     <script>
         $(function () {
             var socket = io();
-
+	    var pnum = 0;
             /*
                $('form').submit(function(){
                socket.emit('chat message', $('#m').val());
@@ -389,19 +389,38 @@
                 return false;
             });
             socket.on('chat message', function (msg) {
-		    var temp = msg.split(" ");
-		    if (temp[0] == "WINNER") {
-			    showwinner(msg);
-			    return false;
-		    }
                 dropRow(msg);
                 return false;
             });
+            socket.on('win message', function (msg) {
+		    console.log("in win message");
+		    var temp = msg.split(" ");
+		    console.log(temp[0]);
+		    if (temp[0] == "WINNER") {
+			    console.log("in show winner");
+			    showwinner(msg);
+			    return false;
+		    }
+                return false;
+            });
+	    socket.on('idx message', function (msg) {
+		    pnum = msg;
+		    var str = "<p>You are Player: " + msg + "</p>";
+		    //console.log(str);
+		    $(".pidx").append(str);
+	    });
 
 	    function showwinner(msg) {
 		    var temp = msg.split(" ");
 		    $("#grid").css("display", "none");
 		    $("#win").css("display", "inline");
+		    if (temp[1] == pnum){
+			    $("#win").append("<p><b>You Win</b></p>");
+		    }
+		    else {
+			    var str = "<p><b>Player " + temp[1] + " is the winner</b></p>";
+			    $("#win").append(str);
+		    }
 		    return false;
 	    }
 
@@ -439,15 +458,15 @@
                     if(cplayer == 0) {
                         var idx = "Player "+ (i+1) +" disconnected";
                         var p1 = "#player" + i;
-                        console.log(idx); 
-                        console.log(p1);
+                       // console.log(idx); 
+                       // console.log(p1);
                         $(p1).text(idx);
                         $(p1).css('color', 'red');
                     } else {
                         var idx = "Player "+ (i+1) +" connected";
                         var p1 = "#player" + i;
-                        console.log(idx);
-                        console.log(p1);
+                       // console.log(idx);
+                       // console.log(p1);
                         $(p1).text(idx);
                         $(p1).css('color', 'green');
                     }
@@ -475,20 +494,20 @@
                         var colr = $(idx).css('background-color');
                         //console.log(colr);
                         if (checkwinnerv(i, colnum, colr)) {
-                            var win = "WINNER";
-                            socket.emit('win message', win);
+                            var win = "WINNER 1";
+                            socket.emit('w message', win);
                         }
                         if (checkwinnerh(i, colnum, colr)) {
-                            var win = "WINNER";
-                            socket.emit('win message', win);
+                            var win = "WINNER 1";
+                            socket.emit('w message', win);
                         }
                         if (checkwinnerd(i, colnum, colr)) {
-                            var win = "WINNER";
-                            socket.emit('win message', win);
+                            var win = "WINNER 1";
+                            socket.emit('w message', win);
                         }
                         if (checkwinnerd1(i, colnum, colr)) {
-                            var win = "WINNER";
-                            socket.emit('win message', win);
+                            var win = "WINNER 1";
+                            socket.emit('w message', win);
                         }
                         return false;
                     }
@@ -507,10 +526,10 @@
                     }
                     var oidx = "#row-" + row + "-col-" + i;
                     var iidx = "#irow-" + row + "-col-" + i;
-                    console.log(oidx);
+                    //console.log(oidx);
                     if (($(oidx).css('background-color') == colr) || ($(iidx).css('background-color') == colr)) {
                         count = count + 1;
-                        console.log(count, colr);
+                      //  console.log(count, colr);
                     }
                     if (!($(oidx).css('background-color') == colr) && !($(iidx).css('background-color') == colr)) {
                         if (checkwinnervert())
@@ -522,14 +541,14 @@
                 function checkwinnervert() {
                     for (var i = colnum - 1; i >= 0; i--) {
                         if (count == 3) {
-                            console.log("WINNER");
+                          //  console.log("WINNER");
                             return true;
                         }
                         var oidx = "#row-" + row + "-col-" + i;
                         var iidx = "#irow-" + row + "-col-" + i;
                         if (($(oidx).css('background-color') == colr) || ($(iidx).css('background-color') == colr)) {
                             count = count + 1;
-                            console.log(count, colr);
+                        //    console.log(count, colr);
                         }
                         if (!($(oidx).css('background-color') == colr) && !($(iidx).css('background-color') == colr)) {
                             return false;
@@ -554,7 +573,7 @@
                     console.log(oidx);
                     if (($(oidx).css('background-color') == colr) || ($(iidx).css('background-color') == colr)) {
                         count = count + 1;
-                        console.log(count, colr);
+                        //console.log(count, colr);
                     }
                     if (!($(oidx).css('background-color') == colr) && !($(iidx).css('background-color') == colr)) {
                         if (checkwinnerhoriz())
@@ -572,7 +591,7 @@
                         var iidx = "#irow-" + i + "-col-" + colnum;
                         if (($(oidx).css('background-color') == colr) || ($(iidx).css('background-color') == colr)) {
                             count = count + 1;
-                            console.log(count, colr);
+                        //    console.log(count, colr);
                         }
                         if (!($(oidx).css('background-color') == colr) && !($(iidx).css('background-color') == colr)) {
                             return false;
@@ -594,10 +613,10 @@
 			    }
 			    var oidx = "#row-" + i + "-col-" + j;
 			    var iidx = "#irow-" + i + "-col-" + j;
-			    console.log(oidx);
+			  //  console.log(oidx);
 			    if (($(oidx).css('background-color') == colr) || ($(iidx).css('background-color') == colr)) {
 				    count = count + 1;
-				    console.log(count, colr);
+			//	    console.log(count, colr);
 			    }
 			    if (!($(oidx).css('background-color') == colr) && !($(iidx).css('background-color') == colr)) {
 				    if (checkwinnerdiag1())

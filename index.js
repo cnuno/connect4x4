@@ -57,6 +57,8 @@ io.on('connection', function (socket) {
 		players[count][1] = true;
 		console.log("player " + count + " connected");
 		count += 1;
+		var c = count;
+		socket.emit('idx message', c);
 		if (count == 4) {
 			gamestarted = true;
 			ready = true;
@@ -65,14 +67,15 @@ io.on('connection', function (socket) {
 	//console.log(ready);
 	var client = [];
 	//console.log(count);
-	var wincount = 0;
-	socket.on('win message', function(msg) {
-		wincount += 1;
-		var i = idx-1;
-		console.log(wincount);
+	var wcount=0;
+	socket.on('w message', function(msg) {
+		wcount = wcount+1;
+		var i = idx;
 		var winner = "WINNER " + i;
-		if (wincount >= count) {
-			io.emit('chat message',winner);
+		console.log("count", count);
+		console.log("wincount", wcount);
+		if (wcount >= 1) {
+			io.emit('win message',winner);
 		}
 	});
 
