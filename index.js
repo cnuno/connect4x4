@@ -6,6 +6,7 @@ var count = 0;
 var idx = 0;
 var ready = false;
 var gamestarted = false;
+var wcount=0;
 var movesmade = [];
 var movecount = 0;
 var players = new Array();
@@ -23,7 +24,7 @@ app.get('/', function (req, res) {
 
 io.on('connection', function (socket) {
 	var socketId = socket.id;
- 
+
 	if (gamestarted == true) {
 		var conn1 = false;
 		for (var i = 0; i < 4; i++) {
@@ -33,7 +34,7 @@ io.on('connection', function (socket) {
 				for (var j = 0; j < movecount; j++) {
 					socket.emit('chat message', movesmade[j]);
 				}
-				
+
 				for (var k = 0; k < movecount; k++) {
 					var cmove = movesmade[k];
 					var matches = 0;
@@ -67,16 +68,19 @@ io.on('connection', function (socket) {
 	//console.log(ready);
 	var client = [];
 	//console.log(count);
-	var wcount=0;
 	socket.on('w message', function(msg) {
 		wcount = wcount+1;
 		var i = idx;
 		var winner = "WINNER " + i;
 		console.log("count", count);
 		console.log("wincount", wcount);
-		if (wcount >= 1) {
+		if (wcount >= count) {
 			io.emit('win message',winner);
 		}
+	});
+	socket.on('r message', function(msg) {
+		idx = 0;
+		io.emit('res message', 'reset');
 	});
 
 	socket.on('chat message', function (msg) {
@@ -98,7 +102,7 @@ io.on('connection', function (socket) {
 			//console.log(client[1]);
 			io.emit('chat message', client[1]);
 
-			
+
 			idx++;
 			makeMove();
 			if (idx == 4) {
@@ -129,7 +133,7 @@ io.on('connection', function (socket) {
 		console.log(conn);
 		console.log("check after conn");
 		io.emit('disconnect', conn);
-		
+
 		if (players[idx][0] == socket.id && players[idx][1] == false) {
 			//console.log("making move for disconnected player " + players[idx][0]);
 
@@ -175,7 +179,7 @@ io.on('connection', function (socket) {
 
 	function makeMove() {
 		// if(idx == 4) {
-			// idx = -1;
+		// idx = -1;
 		//}
 		for (var i = 0; i < 4; i++) {
 			if (players[i][1] == true) {
