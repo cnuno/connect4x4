@@ -80,6 +80,10 @@ io.on('connection', function (socket) {
 	});
 	socket.on('r message', function(msg) {
 		idx = 0;
+		for (var i=0; i<movecount+1; i++) {
+			movesmade[i] = "";
+		}
+		movecount = 0;
 		io.emit('res message', 'reset');
 	});
 
