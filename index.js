@@ -49,6 +49,8 @@ io.on('connection', function (socket) {
 				console.log("player " + i + " reconnected with new id " + players[i][0]);
 				conn1 = true;
 				count++;
+				var c = count;
+				socket.emit('idx message', c);
 			}
 		}
 	}
@@ -84,6 +86,7 @@ io.on('connection', function (socket) {
 			movesmade[i] = "";
 		}
 		movecount = 0;
+		wcount = 0;
 		io.emit('res message', 'reset');
 	});
 

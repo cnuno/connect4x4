@@ -422,6 +422,15 @@
 	    });
 	    socket.on('idx message', function (msg) {
 		    pnum = msg;
+		    if (msg == "1") {
+			    $("#pidx").css("color", "blue");
+		    } else if(msg == "2") {
+			    $("#pidx").css("color", "red");
+		    } else if(msg == "3") {
+			    $("#pidx").css("color", "green");
+		    } else {
+			    $("#pidx").css("color", "#a5a500");
+		    }
 		    var str = "<p>You are Player: " + msg + "</p>";
 		    //console.log(str);
 		    $(".pidx").append(str);
